@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vilnius iGEM AR</title>
+    <link rel="stylesheet" href="src/css/filepond.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="./src/css/main.css" rel="stylesheet">
+    <style>
+        #passWrapper {
+            margin-bottom: 10px
+        }
+        
+        h2 span {
+            -webkit-text-stroke-color: #6281ef;
+            font-family: 'CustomHeavy';
+            cursor: pointer;
+            color: transparent
+        }
+    </style>
+</head>
+
+<body id="upload">
+    <header>
+        <h1>upload your model</h1>
+    </header>
+    <main id="maintag">
+        <div id="actions">
+            <div id="uploadDiv" class="container">
+                <div>
+                    <h2>1. upload<span> ?</span></h2>
+
+                </div>
+
+                <div id="passWrapper">
+                    <p id="wrong"></p>
+                </div>
+                <input type="file" accept=".glb" id="fileInput">
+            </div>
+            <div id="write" class="container">
+                <h2>2. write<span> ?</span></h2>
+                <div>
+                    <form>
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" placeholder="Enter the title">
+                    </form>
+                    <div></div>
+                    <h3>Text</h3>
+                    <div id="editor-wrapper">
+                        <div id="editor">
+                            <p></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container submit">
+                <a id="submit-button" href="javascript: void(0)">
+                    <button class="btn-large">
+						<h3>3. submit</h3>
+					</button>
+                </a>
+
+            </div>
+        </div>
+
+
+    </main>
+    <footer>
+        <a href="choose.html" id="info">
+            <button class="btn-return">
+				<p>return</p>
+			</button>
+        </a>
+    </footer>
+    <div class="popupWrapper">
+        <div id="resultPopup">
+            <h1>Success!</h1>
+            <p>You successfully uploaded your Augmented Reality Scene. Now everyone with the code</p>
+            <div id="firstCode" class="code"></div>
+            <p>can watch it. But before that, we highly suggest that you setup your scene before starting to use it. You can do it now or later with the code</p>
+            <div id="secondCode" class="code"></div>
+            <div id="buttonwrapper">
+                <button id="returnHome"><a href="index.html">return</a></button>
+                <button id="setup"><a href="ar.html" id="setuplink">setup</a></button>
+            </div>
+        </div>
+    </div>
+    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.18.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.18.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="src/js/filepond.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.js"></script>
+    <script>
+        var editor = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Enter your text here'
+        });
+        var bold = Quill.import('formats/bold');
+        bold.tagName = 'b';
+        Quill.register(bold, true);
+
+        var italic = Quill.import('formats/italic');
+        italic.tagName = 'i';
+        Quill.register(italic, true);
+
+        const inputElement = document.querySelector('input[type="file"]');
+        const pond = FilePond.create(inputElement);
+
+        FilePond.setOptions({
+            multiple: false,
+            name: 'filepond',
+            server: './'
+        });
+
+        document.addEventListener('FilePond:addfile', function() {
+            pond.processFile();
+        })
+
+        let fileUpload = document.getElementById("fileInput")
+
+        var submit = document.querySelector("#submit-button");
+        let firstFile;
+        fileUpload.addEventListener('change', function(evt) {
+            firstFile = evt.target.files[0]
+        });
+        submit.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (firstFile == null) {
+                var passWrapper = document.getElementById('passWrapper');
+                document.getElementById('wrong').innerHTML = "Please upload your 3D model in .glb format."
+                passWrapper.style.maxHeight = passWrapper.scrollHeight + "px";
+            } else {
+                var customTitle = document.getElementById("title").value;
+                var customText = editor.root.innerHTML;
+                var timestamp = Number(new Date());
+                var refPath = 'models/' + timestamp.toString();
+                var storageRef = firebase.storage().ref(refPath);
+                try {
+                    var uploadTask = storageRef.put(firstFile);
+                    var codes = writeUserData(customTitle, customText, refPath);
+                    showResult(codes)
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+        });
+
+        function writeUserData(title, desc, path) {
+            var code = (Math.floor(100000 + Math.random() * 900000)).toString();
+            var adminCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+            var data = {
+                model: {
+                    path: path,
+                    pos: {
+                        x: 0,
+                        y: 0,
+                        z: 0
+
+                    },
+                    rot: {
+                        x: 0,
+                        y: 0,
+                        z: 0
+
+                    },
+                    scale: 1
+                },
+                meta: {
+                    title: title,
+                    description: desc
+                },
+                admin: adminCode
+            }
+            firebase.database().ref(code).set(data);
+            return [code, adminCode];
+        }
+
+        function showResult(codes) {
+            document.getElementById('firstCode').innerHTML = codes[0];
+            document.getElementById('secondCode').innerHTML = codes[1];
+            document.getElementById('setuplink').href = "ar.html?id=" + codes[0] + "&admin=" + codes[1];
+            document.getElementById('popupWrapper').style.display = 'flex';
+        }
+    </script>
+</body>
+
+</html>

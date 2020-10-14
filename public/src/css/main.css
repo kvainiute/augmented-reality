@@ -1,0 +1,637 @@
+@font-face {
+    font-family: 'CustomBold';
+    src: url('../fonts/Lato-Bold.ttf') format('truetype'), url('../fonts/Lato-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CustomReg';
+    src: url('../fonts/Lato-Regular.ttf') format('truetype'), url('../fonts/Lato-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CustomLight';
+    src: url('../fonts/Lato-Light.ttf') format('truetype'), url('../fonts/Lato-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'CustomHeavy';
+    src: url('../fonts/Lato-Heavy.ttf') format('truetype'), url('../fonts/Lato-Heavy.woff') format('woff');
+}
+
+* {
+    font-family: 'CustomLight', sans-serif;
+    color: #fafafc;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+body,
+html {
+    height: 100vh;
+    width: 100vw;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    background-image: url(../images/lines.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header {
+    padding-top: 40px
+}
+
+h1,
+h2,
+h3,
+form label,
+button {
+    text-transform: uppercase;
+    margin: 0;
+    text-align: center;
+    line-height: 0.8em;
+    font-family: 'CustomHeavy', sans-serif !important;
+}
+
+h1 {
+    font-size: 3.5em;
+}
+
+h2 {
+    font-size: 2em;
+    -webkit-text-stroke-width: 1px;
+    color: transparent;
+    -webkit-text-stroke-color: #fafafc;
+    padding-bottom: 50px;
+    transition: 0.3s
+}
+
+.submit h2 {
+    padding: 0 !important;
+}
+
+h3,
+form label {
+    font-size: 1.5em;
+}
+
+footer {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden
+}
+
+footer button {
+    border-radius: 200px;
+    border: solid 2px #6281ef;
+    color: #6281ef;
+    background-color: transparent;
+    transition: 0.5s
+}
+
+footer button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-small {
+    font-size: 2em;
+    height: 40px;
+    width: 40px;
+    line-height: 0.5em;
+}
+
+.btn-large {
+    width: 40vw;
+    max-width: 400px;
+    height: 75px;
+    min-width: fit-content;
+}
+
+.btn-medium {
+    width: 100px;
+}
+
+a:not(:first-child) .btn-large {
+    margin-top: 20px
+}
+
+.btn-return {
+    text-transform: none;
+    height: 200px;
+    width: 200px;
+    font-size: 2em;
+    transform: translateY(50%);
+}
+
+.btn-return p {
+    margin-top: 0
+}
+
+button {
+    background-color: #6281ef;
+    border: none;
+    color: #fafafc;
+    width: 30%;
+    height: 39px;
+    font-size: 1.3em;
+    border-radius: 11px;
+    transition: 0.5s;
+    cursor: pointer
+}
+
+a button {
+    text-decoration: none;
+    color: #fafafc;
+    transition: 0.3s
+}
+
+button:hover {
+    color: rgba(0, 0, 0, 0.9)
+}
+
+button:hover {
+    transform: translateY(5px);
+}
+
+button.btn-return:hover {
+    transform: translateY(30%);
+}
+
+
+/*CHOOSE*/
+
+#choose .actions {
+    display: flex;
+}
+
+#choose h2 {
+    padding-bottom: 40px;
+    padding-top: 40px;
+    font-size: 3em;
+}
+
+#choose h2 b {
+    color: #fafafc;
+}
+
+#setup .actions {
+    display: flex;
+}
+
+#setup #write {
+    width: 80%
+}
+
+#enter .container {
+    width: 40vw;
+    max-width: 400px
+}
+
+.part {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#left-part {
+    border-right: solid 2px #fafafc;
+    display: block;
+}
+
+#upload header,
+#setup header {
+    padding-bottom: 10vh;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+}
+
+main#navigation {
+    flex-direction: column;
+}
+
+.container {
+    margin: 0 auto;
+    border: solid 2px;
+    border-radius: 7px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#enter .container,
+#choose .container {
+    border: none;
+    margin: 0 auto;
+    background-color: transparent
+}
+
+#editor-wrapper {
+    padding-top: 20px
+}
+
+.ql-toolbar.ql-snow {
+    border-bottom: solid 3px #6281ef;
+    background: #fafafc;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.ql-container.ql-snow {
+    background: rgba(0, 0, 0, 0.3);
+    border: solid 2px #6281ef;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.ql-editor.ql-blank::before {
+    font-style: normal;
+    color: darkgray;
+    text-transform: uppercase;
+    font-family: 'CustomBold';
+    text-align: center;
+}
+
+.filepond--drip {
+    background: #fafafc
+}
+
+#fileInput label,
+#fileInput span {
+    color: #121212;
+}
+
+#fileInput span {
+    font-family: 'CustomBold'
+}
+
+form {
+    text-align: center
+}
+
+form input {
+    padding: 5px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: solid 3px #6281ef;
+    margin-bottom: 20px;
+    background-color: transparent;
+    color: #fafafc;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.5em;
+    width: 100%;
+}
+
+#editor b {
+    color: #6281ef;
+    font-family: 'CustomBold';
+}
+
+#title {
+    font-family: 'CustomBold';
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.actions {
+    position: absolute;
+    width: 100vw;
+}
+
+.submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    height: 20vw;
+    max-height: 200px;
+    max-width: 200px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#upload .submit {
+    background-color: transparent;
+    display: block;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    height: auto
+}
+
+#setup .submit {
+    background-color: transparent
+}
+
+.submit-button {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #6281ef;
+    border-radius: 400px;
+    cursor: pointer;
+    max-height: 400px;
+    max-width: 400px;
+    z-index: 3;
+}
+
+.popupWrapper {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 7;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#resultPopup,
+#loginPopup {
+    width: 40%;
+    height: fit-content;
+    background-color: #121212;
+    color: #fafafc;
+    font-family: 'CustomReg';
+    border: solid 1px #fafafc;
+    padding: 15px;
+    border-radius: 5px
+}
+
+#loginPopup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginPopup .container {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    width: 80%;
+}
+
+#loginPopup h3 {
+    font-size: 2em;
+    padding-bottom: 20px
+}
+
+#loginPopup .submit {
+    max-height: 100px;
+    max-width: 100px;
+    font-size: 0.6em
+}
+
+.code {
+    text-align: center;
+    font-size: 2em;
+    color: #6281ef;
+    font-family: 'CustomBold', sans-serif;
+}
+
+#buttonwrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px
+}
+
+.submit-button:hover h2 {
+    color: #fafafc
+}
+
+#passWrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s
+}
+
+#wrong {
+    margin: 0;
+    color: crimson;
+}
+
+#wrong b {
+    font-family: 'CustomBold';
+}
+
+@media (max-width:420px) {
+    .btn-large {
+        max-width: initial;
+        width: 80vw;
+    }
+    .btn-large a {
+        font-size: 1.5em;
+    }
+    h1 {
+        font-size: 2.5em
+    }
+    h2 {
+        font-size: 1.5em
+    }
+    h3,
+    form label {
+        font-size: 1em;
+    }
+    .btn-return {
+        height: 150px;
+        width: 150px;
+        font-size: 1.6em;
+    }
+    .actions {
+        max-width: 90%;
+    }
+    #choose h2 {
+        font-size: 1.9em;
+        line-height: 1.2
+    }
+    #choose h1 {
+        font-size: 2.2em;
+        line-height: 1
+    }
+    #enter .container {
+        width: 80vw;
+        max-width: initial;
+    }
+    form input {
+        font-size: 1.2em;
+    }
+    body#upload,
+    body#setup {
+        height: 100%;
+        display: initial;
+    }
+    #setup main {
+        height: 100%;
+    }
+    body#upload main {
+        width: 80vw;
+        margin: 0 auto;
+    }
+    #loginPopup {
+        width: 80%;
+    }
+    #setup .actions {
+        display: initial;
+    }
+    #setup .container.submit {
+        width: 50vw;
+        height: 50vw;
+    }
+    #setup #left-part {
+        border-right: none;
+        border-bottom: solid 2px #fafafc;
+        padding-bottom: 30px;
+    }
+    #setup #right-part {
+        padding-top: 30px;
+    }
+    #setup .part {
+        width: initial;
+    }
+}
+
+@media (max-width:320px) {
+    #choose h2 {
+        font-size: 1.6em;
+        line-height: 1.3
+    }
+    #choose h1 {
+        font-size: 1.8em;
+        line-height: 1.2
+    }
+}
+
+@media (max-height:420px) and (min-aspect-ratio: 16/9) {
+    header {
+        padding-top: 20px
+    }
+    .btn-large {
+        height: 50px;
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    #index h1 {
+        line-height: 0.5
+    }
+    .btn-return {
+        height: 100px;
+        width: 100px;
+        font-size: 1.3em;
+    }
+    #choose h2 {
+        padding-bottom: 20px;
+        padding-top: 20px;
+        font-size: 2em;
+        line-height: 1
+    }
+    #choose h1 {
+        font-size: 2.5em;
+        line-height: 1
+    }
+}
+
+@media (max-height:320px) and (min-aspect-ratio: 16/10) {
+    header {
+        padding-top: 20px
+    }
+    .btn-large {
+        height: 35px;
+    }
+    h1 {
+        font-size: 2.2em;
+        line-height: 0.4
+    }
+    h3 {
+        font-size: 1.2em;
+        line-height: 0.5
+    }
+    footer button {
+        height: 30px;
+        width: 30px;
+        font-size: 1.5em
+    }
+    .btn-return {
+        height: 100px;
+        width: 100px;
+        font-size: 1.3em;
+    }
+    #choose h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-size: 1.7em;
+        line-height: 1
+    }
+    #choose h1 {
+        font-size: 2.2em;
+        line-height: 1
+    }
+}
+
+@media (max-width:768px) and (min-width:421px) and (min-height:421px) {
+    .btn-large {
+        width: 400px;
+        height: 75px;
+        min-width: fit-content;
+    }
+    .btn-large a {
+        font-size: 1.7em;
+    }
+    h1 {
+        font-size: 2.9em
+    }
+    h2 {
+        font-size: 1.7em
+    }
+    h3,
+    form label {
+        font-size: 2em;
+    }
+    #choose h2 {
+        font-size: 3.3em;
+        line-height: 1.1
+    }
+    #choose h1 {
+        font-size: 3.4em;
+        line-height: 1
+    }
+}
+
+@media (max-width:768px) and (min-aspect-ratio: 5/8) and (max-aspect-ratio: 8/5) {
+    header {
+        padding-top: 20px
+    }
+    #choose h2 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-size: 2.5em;
+    }
+    #choose h1 {
+        font-size: 2.8em;
+    }
+    .btn-return {
+        height: 100px;
+        width: 100px;
+        font-size: 1.3em;
+    }
+}

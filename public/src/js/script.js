@@ -7,23 +7,21 @@ let dracoLoader = new THREE.DRACOLoader();
 dracoLoader.setDecoderPath('./src/draco/');
 loader.setDRACOLoader(dracoLoader);
 
-var mixer;
-
-const dataKeys = Object.keys(data); // get list of model ids
-
+var mixer, data;
 
 var arToolkitSource, arToolkitContext;
 
 
-function setTitle() {
-	document.title = "Vilnius iGEM AR – " + data.meta.name;
+function setTitle(title) {
+	document.title = "Vilnius iGEM AR – " + title;
 }
 
-function loadSingle() {
-	if (data == undefined) return;
+function loadSingle(dataM, url) {
+	if (dataM == undefined) return;
+	data = dataM;
 	initializeAR();
-	load3Dmodel(data);
-	animate();
+	load3Dmodel(data, url);
+	animate()
 }
 
 function onResize() {
@@ -60,11 +58,9 @@ function initializeAR() {
 	camera = new THREE.Camera();
 	scene.add(camera);
 
-	//var canvas = document.getElementById('appCanvas');
 	renderer = new THREE.WebGLRenderer({
 		antialias: true,
 		alpha: true,
-		//canvas: canvas,
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 	renderer.setSize(1280, 960);
@@ -113,26 +109,23 @@ function initializeAR() {
 
 }
 
-function showModelInfo() {
-	let info = data.meta
-	document.getElementById("st-name").innerHTML = info.name;
-	document.getElementById("text-info").innerHTML = info.desc;
+function showModelInfo(info) {
+	document.getElementById("st-name").innerHTML = info.title;
+	document.getElementById("text-info").innerHTML = info.description;
 	document.getElementById("model-info").style.display = 'flex';
 }
 
-
-function load3Dmodel(item, ar = true) {
+function load3Dmodel(item, url, ar = true) {
 	let modelData = item.model;
+
 	let modelMeta = item.meta;
-	if (typeof modelData.pattern === 'undefined') {
-		return;
-	}
-	window.addEventListener("load", function () {
-		document.getElementById("info-button").addEventListener('click', showModelInfo, false);
+	document.getElementById("info-button").addEventListener('click', function () {
+		showModelInfo(modelMeta)
 	});
 	// interpolates from last position to create smoother transitions when moving.
 	// parameter lerp values near 0 are slow, near 1 are fast (instantaneous).
 	let root = new THREE.Group();
+	root.name = "3Dmodel"
 	scene.add(root);
 	let smoothedControl;
 	if (ar) {
@@ -147,12 +140,12 @@ function load3Dmodel(item, ar = true) {
 			arToolkitContext,
 			root, {
 				type: 'pattern',
-				patternUrl: "src/pattern/" + modelData.pattern + ".patt",
+				patternUrl: "src/pattern/ar.patt",
 			}
 		);
 	}
 
-	let modelPath = modelData.path;
+	//	let modelPath = modelData.path;
 	let pos = modelData.pos;
 	let rot = modelData.rot;
 
@@ -167,16 +160,18 @@ function load3Dmodel(item, ar = true) {
 		x: 0
 	};
 	let meshItem;
-	loader.load(modelPath, function (load_model) {
+
+	loader.load(url, function (load_model) {
+
 		meshItem = load_model.scene;
 		let scale = modelData.scale * 0.25;
 		meshItem.scale.set(scale, scale, scale);
-		meshItem.position.x += pos.x;
-		meshItem.position.y += pos.y;
-		meshItem.position.z += pos.z;
-		meshItem.rotation.x += rot.x;
-		meshItem.rotation.y += rot.y;
-		meshItem.rotation.z += rot.z;
+		meshItem.position.x = pos.x;
+		meshItem.position.y = pos.y;
+		meshItem.position.z = pos.z;
+		meshItem.rotation.x = rot.x;
+		meshItem.rotation.y = rot.y;
+		meshItem.rotation.z = rot.z;
 		modelData.actions = [];
 		modelData.mixer = new THREE.AnimationMixer(meshItem);
 		for (let i = 0; i < load_model.animations.length; i++) {
@@ -184,17 +179,32 @@ function load3Dmodel(item, ar = true) {
 			modelData.actions.push(action);
 			action.play()
 		}
-
 		root.add(meshItem);
+		scene.children[5].children[0].name = '3DmodelGroup'
 
 	}, function (xhr) {
 		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
 	}, function (error) {
 		console.error(error);
 	});
 	modelData.visible = false;
 	modelData.root = root;
+	modelData.control = smoothedControl;
 }
+
+function setupModel(params) {
+	var sceneChildren = scene.children[5];
+	var object = scene.getObjectByName("3DmodelGroup");
+	object.position.x = params.pos.x
+	object.position.y = params.pos.y
+	object.position.z = params.pos.z
+	object.rotation.x = params.rot.x
+	object.rotation.y = params.rot.y
+	object.rotation.z = params.rot.z
+	object.scale.x = object.scale.y = object.scale.z = params.scale * 0.25
+}
+
 
 function update() {
 
@@ -202,22 +212,13 @@ function update() {
 	if (arToolkitSource != undefined && arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
-	// additional code for smoothed controls
-	for (let key of dataKeys) {
-		let item = data;
-		if (item.model.control === undefined) continue;
-		item.model.control.update(item.model.root);
-	}
+	let item = data;
+	item.model.control.update(item.model.root);
 
-	// start animation depending on model
-	for (let key of dataKeys) {
-
-		let item = data;
-		if (item.model.root == undefined) continue;
-		if (item.model.actions == undefined) continue;
-		if (item.model.root.visible === item.model.visible) continue;
-		item.model.visible = item.model.root.visible;
-	}
+	if (item.model.root == undefined) return;
+	if (item.model.actions == undefined) return;
+	if (item.model.root.visible === item.model.visible) return;
+	item.model.visible = item.model.root.visible;
 }
 
 
@@ -228,7 +229,7 @@ function animate() {
 	if (data.model.mixer != null) data.model.mixer.update(deltaTime);
 
 	if (controls != undefined) controls.update();
-	update();
+	update()
 	renderer.render(scene, camera); // model update
 	requestAnimationFrame(animate);
 }

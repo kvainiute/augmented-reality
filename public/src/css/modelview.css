@@ -57,7 +57,7 @@ canvas {
 	bottom: 0;
 	width: 100vw;
 	z-index: 5;
-	justify-content: center
+	justify-content: space-evenly
 }
 
 .col-3 {
@@ -102,7 +102,7 @@ canvas {
 	background: rgba(18, 18, 18, 0.9);
 	border-radius: 15px;
 	position: relative;
-	z-index: 5;
+	z-index: 11;
 }
 
 #info-text {
@@ -179,7 +179,8 @@ svg text {
 	height: fit-content;
 }
 
-#model-info em {
+#model-info em,
+#model-info b {
 	font-style: normal;
 	font-family: 'CustomBold';
 	color: #6281ef
