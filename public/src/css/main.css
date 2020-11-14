@@ -271,11 +271,11 @@ main#navigation {
 }
 
 #fileInput label,
-#fileInput span {
+#fileInput a {
     color: #121212;
 }
 
-#fileInput span {
+#fileInput a {
     font-family: 'CustomBold'
 }
 
@@ -367,7 +367,8 @@ form input {
 }
 
 #resultPopup,
-#loginPopup {
+#loginPopup,
+#infoPopup {
     width: 40%;
     height: fit-content;
     background-color: #121212;

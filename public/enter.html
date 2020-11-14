@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vilnius iGEM AR</title>
     <link href="./src/css/main.css" rel="stylesheet">
+    <style>
+        button.btn-medium {
+            width: fit-content;
+            height: fit-content;
+            padding: 20px 10px;
+            margin-top: 30px;
+        }
+        
+        #enter .actions .container:last-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body id="enter">
@@ -23,9 +37,12 @@
                 <a id="enter-button" href="javascript: void(0)">
                     <button class="btn-large">
 						<h3>enter</h3>
-					</button>
-                </a>
+     </button>
 
+                </a>
+                <button class="btn-medium">
+                 <a href="./ar.png" download>download AR marker</a>
+                </button>
             </div>
         </div>
     </main>
@@ -47,8 +64,7 @@
     <script>
         var button = document.getElementById('enter-button');
         button.addEventListener('click', function() {
-            var code = document.getElementById("title").value;
-            console.log(code)
+            var code = document.getElementById("sceneCode").value;
             var data;
             var database = firebase.database().ref(code).once('value').then(function(snapshot) {
                 data = snapshot.val();

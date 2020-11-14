@@ -2,297 +2,309 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Vilnius iGEM AR</title>
-	<link href="./src/css/main.css" rel="stylesheet">
-	<link href="./src/css/modelview.css" rel="stylesheet">
-	<style>
-		body,
-		html {
-			background-image: none;
-			background-color: transparent
-		}
-
-		#controlswrapper {
-			width: 100vw;
-			display: none;
-			height: 90vh;
-			align-items: center;
-			justify-content: flex-start;
-			position: absolute;
-			top: 0;
-			z-index: 10
-		}
-
-		#controlswrapper #controls {
-			width: 20%;
-			margin-left: 10px
-		}
-
-		#controlswrapper #controls .controlsType {
-			background-color: #6281ef;
-			padding: 1px;
-			text-align: center;
-			border-radius: 100px;
-			font-size: 1.5em;
-			line-height: 0.3;
-			font-family: 'CustomLight'
-		}
-
-		.controlButton {
-			border-radius: 100px;
-			background-color: #6281ef;
-			height: 30px;
-			width: 30px;
-			border: none;
-			color: #fafafc;
-			display: block;
-		}
-
-
-		.slider {
-			-webkit-appearance: none;
-			width: 100%;
-			height: 5px;
-			border-radius: 5px;
-			background: #d3d3d3;
-			outline: none;
-			opacity: 0.7;
-			-webkit-transition: .2s;
-			transition: opacity .2s;
-		}
-
-		.slider::-webkit-slider-thumb {
-			-webkit-appearance: none;
-			appearance: none;
-			width: 15px;
-			height: 15px;
-			border-radius: 50%;
-			background: #6281ef;
-			cursor: pointer;
-		}
-
-		.slider::-moz-range-thumb {
-			width: 15px;
-			height: 15px;
-			border-radius: 50%;
-			background: #6281ef;
-			cursor: pointer;
-		}
-
-		.buttonwrapper {
-			display: flex;
-			align-items: unset;
-			justify-content: space-around;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-
-		#finals {
-			display: flex;
-			justify-content: space-around;
-			margin-top: 20px
-		}
-
-		.finalButton {
-			border-radius: 100px;
-			background-color: #6281ef;
-			height: 30px;
-			width: 40%;
-			border: none;
-			color: #fafafc;
-			cursor: pointer;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vilnius iGEM AR</title>
+    <link href="./src/css/main.css" rel="stylesheet">
+    <link href="./src/css/modelview.css" rel="stylesheet">
+    <style>
+        body,
+        html {
+            background-image: none;
+            background-color: transparent
+        }
+        
+        #controlswrapper {
+            width: 100vw;
+            display: none;
+            height: 90vh;
+            align-items: center;
+            justify-content: flex-start;
+            position: absolute;
+            top: 0;
+            z-index: 10
+        }
+        
+        #controlswrapper #controls {
+            width: 20%;
+            margin-left: 10px
+        }
+        
+        #controlswrapper #controls .controlsType {
+            background-color: #6281ef;
+            padding: 1px;
+            text-align: center;
+            border-radius: 100px;
+            font-size: 1.5em;
+            line-height: 0.3;
+            font-family: 'CustomLight'
+        }
+        
+        .controlButton {
+            border-radius: 100px;
+            background-color: #6281ef;
+            height: 30px;
+            width: 30px;
+            border: none;
+            color: #fafafc;
+            display: block;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #6281ef;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #6281ef;
+            cursor: pointer;
+        }
+        
+        .buttonwrapper {
+            display: flex;
+            align-items: unset;
+            justify-content: space-around;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        #finals {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px
+        }
+        
+        .finalButton {
+            border-radius: 100px;
+            background-color: #6281ef;
+            height: 30px;
+            width: 40%;
+            border: none;
+            color: #fafafc;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-	<div class="info">
-		<div><a href="/enter.html" aria-label="Enter the code">
-				<img class="button" id="home-button" src="src/images/menu.svg">
-			</a></div>
-		<div><a href="#" aria-label="Information about the model">
-				<img class="button" id="info-button" src="src/images/info.svg">
-			</a></div>
+    <div class="info">
+        <div>
+            <a href="/enter.html" aria-label="Enter the code">
+                <img class="button" id="home-button" src="src/images/menu.svg">
+            </a>
+        </div>
+        <div>
+            <a href="#" aria-label="Information about the model">
+                <img class="button" id="info-button" src="src/images/info.svg">
+            </a>
+        </div>
 
-	</div>
-	<div id="model-info">
-		<div id="info-name">
-			<h1 id="st-name" text-align="center"></h1>
-		</div>
+    </div>
+    <div id="model-info">
+        <div id="info-name">
+            <h1 id="st-name" text-align="center"></h1>
+        </div>
 
-		<div id="info-text">
-			<p id="text-info"></p>
-		</div>
-		<div id="info-footer">
-			<img id="close-button" class="info-footer-icons" src="./src/images/close.svg">
-		</div>
-	</div>
-	<div id="controlswrapper">
-		<div id="controls">
-			<div>
-				<div class="controlsType">
-					<p>Position</p>
-				</div>
-				<div id="controlsButtons">
-					<div class="buttonwrapper">
-						<button id="posX" class="controlButton">X</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posXrange">
-						</div>
-					</div>
-					<div class="buttonwrapper">
-						<button id="posY" class="controlButton">Y</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posYrange">
-						</div>
-					</div>
-					<div class="buttonwrapper"><button id="posZ" class="controlButton">Z</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posZrange">
-						</div>
-					</div>
-				</div>
-				<div class="controlsType">
-					<p>Rotation</p>
-				</div>
-				<div id="controlsButtons">
-					<div class="buttonwrapper"><button id="rotX" class="controlButton">X</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotXrange">
-						</div>
-					</div>
-					<div class="buttonwrapper"><button id="rotY" class="controlButton">Y</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotYrange">
-						</div>
-					</div>
-					<div class="buttonwrapper"><button id="rotZ" class="controlButton">Z</button>
-						<div class="slidecontainer">
-							<input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotZrange">
-						</div>
-					</div>
-				</div>
-				<div class="controlsType">
-					<p>Scale</p>
-				</div>
-				<div id="controlsButtons">
-					<div class="slidecontainer">
-						<input type="range" min="0.001" max="3" value="1" step="0.01" class="slider" id="scaleRange">
-					</div>
-				</div>
-			</div>
-			<div id="finals">
-				<button id="submitBut" class="finalButton"><a>submit</a></button>
-				<button id="tryBut" class="finalButton"><a>try</a></button>
-			</div>
-		</div>
-	</div>
+        <div id="info-text">
+            <p id="text-info"></p>
+        </div>
+        <div id="info-footer">
+            <img id="close-button" class="info-footer-icons" src="./src/images/close.svg">
+        </div>
+    </div>
+    <div id="controlswrapper">
+        <div id="controls">
+            <div>
+                <div class="controlsType">
+                    <p>Position</p>
+                </div>
+                <div id="controlsButtons">
+                    <div class="buttonwrapper">
+                        <button id="posX" class="controlButton">X</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posXrange">
+                        </div>
+                    </div>
+                    <div class="buttonwrapper">
+                        <button id="posY" class="controlButton">Y</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posYrange">
+                        </div>
+                    </div>
+                    <div class="buttonwrapper"><button id="posZ" class="controlButton">Z</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="posZrange">
+                        </div>
+                    </div>
+                </div>
+                <div class="controlsType">
+                    <p>Rotation</p>
+                </div>
+                <div id="controlsButtons">
+                    <div class="buttonwrapper"><button id="rotX" class="controlButton">X</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotXrange">
+                        </div>
+                    </div>
+                    <div class="buttonwrapper"><button id="rotY" class="controlButton">Y</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotYrange">
+                        </div>
+                    </div>
+                    <div class="buttonwrapper"><button id="rotZ" class="controlButton">Z</button>
+                        <div class="slidecontainer">
+                            <input type="range" min="-2" max="3" value="0" step="0.1" class="slider" id="rotZrange">
+                        </div>
+                    </div>
+                </div>
+                <div class="controlsType">
+                    <p>Scale</p>
+                </div>
+                <div id="controlsButtons">
+                    <div class="slidecontainer">
+                        <input type="range" min="0.001" max="3" value="1" step="0.01" class="slider" id="scaleRange">
+                    </div>
+                </div>
+            </div>
+            <div id="finals">
+                <button id="submitBut" class="finalButton"><a>submit</a></button>
+                <button id="tryBut" class="finalButton"><a>try</a></button>
+            </div>
+        </div>
+    </div>
 
-	<script src='./src/js/three.js'></script>
+    <script src='./src/js/three.js'></script>
 
-	<script src="./src/jsartoolkit5/artoolkit.min.js"></script>
-	<script src="./src/jsartoolkit5/artoolkit.api.js"></script>
+    <script src="./src/jsartoolkit5/artoolkit.min.js"></script>
+    <script src="./src/jsartoolkit5/artoolkit.api.js"></script>
 
-	<script src="./src/threex/threex-artoolkitsource.js"></script>
-	<script src="./src/threex/threex-artoolkitcontext.js"></script>
-	<script src="./src/threex/threex-arbasecontrols.js"></script>
-	<script src="./src/threex/threex-armarkercontrols.js"></script>
-	<script src="./src/threex/threex-arsmoothedcontrols.js"></script>
+    <script src="./src/threex/threex-artoolkitsource.js"></script>
+    <script src="./src/threex/threex-artoolkitcontext.js"></script>
+    <script src="./src/threex/threex-arbasecontrols.js"></script>
+    <script src="./src/threex/threex-armarkercontrols.js"></script>
+    <script src="./src/threex/threex-arsmoothedcontrols.js"></script>
 
-	<script src="./src/js/OrbitControls.js"></script>
-	<script src="./src/js/GLTFLoader.js"></script>
-	<script src="./src/js/DRACOLoader.js"></script>
+    <script src="./src/js/OrbitControls.js"></script>
+    <script src="./src/js/GLTFLoader.js"></script>
+    <script src="./src/js/DRACOLoader.js"></script>
 
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<!--	<script src="model-data.js"></script>-->
-	<script src="./src/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!--	<script src="model-data.js"></script>-->
+    <script src="./src/js/script.js"></script>
 
 
-	<script src="/__/firebase/7.18.0/firebase-app.js"></script>
-	<script defer src="/__/firebase/7.18.0/firebase-database.js"></script>
-	<script defer src="/__/firebase/7.18.0/firebase-storage.js"></script>
-	<script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
-	<script src="/__/firebase/init.js"></script>
-	<script>
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const code = urlParams.get('id')
-		const adminCode = urlParams.get('admin');
+    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.18.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.18.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const code = urlParams.get('id')
+        const adminCode = urlParams.get('admin');
 
-		window.addEventListener('load', function() {
-			var data;
-			firebase.database().ref(code).once('value').then(function(snapshot) {
-				data = snapshot.val();
-				var storage = firebase.storage();
-				var gsReference = storage.ref(data.model.path);
-				gsReference.getDownloadURL().then(function(url) {
-					loadSingle(data, url);
-					setTitle(data.meta.title);
-					if (adminCode != null) {
-						document.getElementById('posXrange').value = data.model.pos.x
-						document.getElementById('posYrange').value = data.model.pos.y
-						document.getElementById('posZrange').value = data.model.pos.z
+        window.addEventListener('load', function() {
+            var data;
+            firebase.database().ref(code).once('value').then(function(snapshot) {
+                data = snapshot.val();
+                var storage = firebase.storage();
+                try {
+                    var gsReference = storage.ref(data.model.path);
+                } catch (e) {
+                    console.log(e)
+                } finally {
+                    gsReference.getDownloadURL().then(function(url) {
+                        loadSingle(data, url);
+                        setTitle(data.meta.title);
+                        if (adminCode != null) {
+                            document.getElementById('posXrange').value = data.model.pos.x
+                            document.getElementById('posYrange').value = data.model.pos.y
+                            document.getElementById('posZrange').value = data.model.pos.z
 
-						document.getElementById('rotXrange').value = data.model.rot.x
-						document.getElementById('rotYrange').value = data.model.rot.y
-						document.getElementById('rotZrange').value = data.model.rot.z
-						document.getElementById('scaleRange').value = data.model.scale
+                            document.getElementById('rotXrange').value = data.model.rot.x
+                            document.getElementById('rotYrange').value = data.model.rot.y
+                            document.getElementById('rotZrange').value = data.model.rot.z
+                            document.getElementById('scaleRange').value = data.model.scale
 
-						document.getElementById('controlswrapper').style.display = 'flex';
-						document.getElementById('tryBut').addEventListener('click', function() {
-							var params = getSliderValues();
-							setupModel(params);
-						})
-						document.getElementById('submitBut').addEventListener('click', function() {
-							var params = getSliderValues();
-							updateValues(params)
-						})
-					}
-				}).catch(function(error) {
-					switch (error.code) {
-						case 'storage/object-not-found':
-							break;
+                            document.getElementById('controlswrapper').style.display = 'flex';
+                            document.getElementById('tryBut').addEventListener('click', function() {
+                                var params = getSliderValues();
+                                setupModel(params);
+                            })
+                            document.getElementById('submitBut').addEventListener('click', function() {
+                                var params = getSliderValues();
+                                updateValues(params)
+                            })
+                        }
+                    }).catch(function(error) {
+                        switch (error.code) {
+                            case 'storage/object-not-found':
+                                break;
 
-						case 'storage/unauthorized':
-							break;
+                            case 'storage/unauthorized':
+                                break;
 
-						case 'storage/canceled':
-							break;
+                            case 'storage/canceled':
+                                break;
 
-						case 'storage/unknown':
-							break;
-					}
-				});
+                            case 'storage/unknown':
+                                break;
+                        }
+                    });
+                }
 
-			});
-		})
 
-		function updateValues(params) {
-			var updates = {};
-			updates['/model/'] = params;
 
-			return firebase.database().ref(code + '/model').update(params);
-		}
+            });
+        })
 
-		function getSliderValues() {
-			var params = {
-				pos: {
-					x: document.getElementById('posXrange').value,
-					y: document.getElementById('posYrange').value,
-					z: document.getElementById('posZrange').value
-				},
-				rot: {
-					x: document.getElementById('rotXrange').value,
-					y: document.getElementById('rotYrange').value,
-					z: document.getElementById('rotZrange').value
-				},
-				scale: document.getElementById('scaleRange').value
-			}
-			return params;
-		}
-	</script>
+        function updateValues(params) {
+            var updates = {};
+            updates['/model/'] = params;
+
+            return firebase.database().ref(code + '/model').update(params);
+        }
+
+        function getSliderValues() {
+            var params = {
+                pos: {
+                    x: document.getElementById('posXrange').value,
+                    y: document.getElementById('posYrange').value,
+                    z: document.getElementById('posZrange').value
+                },
+                rot: {
+                    x: document.getElementById('rotXrange').value,
+                    y: document.getElementById('rotYrange').value,
+                    z: document.getElementById('rotZrange').value
+                },
+                scale: document.getElementById('scaleRange').value
+            }
+            return params;
+        }
+    </script>
 </body>
 
-</html></html>
+</html>
+
+</html>
